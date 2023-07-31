@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`extractLinksFromString should return a list of links 1`] = `
+[
+  "https://pastebin.com/bNgAT6RpLorem",
+  "https://github.com/aws/aws-lambda-go/blob/main/events/testdata/ses-sns-event.json",
+  "http://www.json.org/JSON_checker/test/pass1.json",
+  "http://shorturl.at/bwCDE",
+]
+`;
