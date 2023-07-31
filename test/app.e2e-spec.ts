@@ -245,12 +245,28 @@ describe('AppController (e2e)', () => {
         string: 'Hello World',
       });
   });
-  it('/json-scraping (POST) on mail link to json page scrap in body (Jsonformatter)', () => {
-    return request(app.getHttpServer())
+  it('should return json from cache response', async () => {
+    const jsonApp = request(app.getHttpServer());
+    const path =
+      'https://proud-of.s3.filebase.com/Test JSON from link of Github Gist.eml';
+    const expectedResponsePayload = {
+      source: 'gist.github.com',
+    };
+    await jsonApp
       .post('/json-scraping')
       .send({
-        path: 'https://proud-of.s3.filebase.com/Test JSON from JSONFormatter.eml',
+        path,
       })
-      .expect(200);
+      .expect(200)
+      .expect(expectedResponsePayload)
+      .expect((res) => !res.headers['X-Cache-Status']);
+    await jsonApp
+      .post('/json-scraping')
+      .send({
+        path,
+      })
+      .expect(200)
+      .expect(expectedResponsePayload)
+      .expect((res) => res.headers['X-Cache-Status']);
   });
 });

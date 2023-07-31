@@ -1,3 +1,4 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -18,6 +19,11 @@ describe('AppController', () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
+      imports: [
+        CacheModule.register({
+          ttl: 0, // Never expire
+        }),
+      ],
       controllers: [AppController],
       providers: [AppService],
     }).compile();

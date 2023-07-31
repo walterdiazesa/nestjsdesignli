@@ -4,12 +4,13 @@ import {
   ExecutionContext,
   Injectable,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { checkPathType } from '../utils';
 
 @Injectable()
 export class BodyPathIsValid implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
-    const request = context.switchToHttp().getRequest();
+    const request: Request = context.switchToHttp().getRequest();
     const body = request.body;
 
     if (checkPathType(body.path) === 'invalid')

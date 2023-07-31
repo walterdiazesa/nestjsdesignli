@@ -1,8 +1,21 @@
-import { All, Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
+import { CacheInterceptor, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import {
+  All,
+  Body,
+  Controller,
+  Inject,
+  Post,
+  Res,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AxiosError } from 'axios';
+import { Request } from 'express';
 import { AppService } from './app.service';
 import { USE_JSON_SCRAPING_URL } from './constants/routes';
 import { BodyPathIsValid } from './guards/body-path.guard';
+import { EMLCacheGuard } from './guards/eml-cache.guard';
 import {
   extractATagsFromHTML,
   extractHrefAttrValueFromATags,
@@ -18,8 +31,12 @@ import { getJSONRawFromJSONProvider, parseEML } from './utils/parse';
 import { prioritizeJSONEndedLinks } from './utils/sort';
 
 @Controller()
+@UseInterceptors(CacheInterceptor)
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    @Inject(CACHE_MANAGER) private cache: Cache,
+  ) {}
 
   @All()
   lost(): typeof USE_JSON_SCRAPING_URL {
@@ -27,9 +44,9 @@ export class AppController {
   }
 
   @Post('/json-scraping')
-  @UseGuards(BodyPathIsValid)
+  @UseGuards(BodyPathIsValid, EMLCacheGuard)
   // With the help of BodyPathIsValid, we can rest assured that the path is either a valid URL (though not necessarily leading to an existing page) or a local path.
-  async scrapJson(@Res() res, @Body() { path }: { path: string }) {
+  async scrapJson(@Res() res, @Body() { path }: Request['body']) {
     const eml = await getEML(path);
     if (eml instanceof AxiosError)
       return res.status(404).json({
@@ -117,6 +134,7 @@ export class AppController {
           try {
             const json = JSON.parse(rawInfo.files[gistFileKey].content);
             if (json) {
+              await this.cache.set(path, json);
               return res.status(200).json(json);
             }
           } catch {}
