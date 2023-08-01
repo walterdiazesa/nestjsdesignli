@@ -54,7 +54,7 @@ export const getEML = async (
   return null;
 };
 
-export const safelyParseJSON = (buffer: Buffer): object | null => {
+export const safelyParseJSON = (buffer: Buffer): Record<string, any> | null => {
   try {
     return JSON.parse(buffer.toString());
   } catch {
@@ -71,7 +71,7 @@ export const safelyParseJSON = (buffer: Buffer): object | null => {
  */
 export const extractJSONFromEMLAttachments = (
   attachments: ParsedMail['attachments'],
-): null | object => {
+): null | Record<string, any> => {
   if (attachments.length === 0) return null;
   const nativeJson =
     attachments.find((attachment) => attachment.contentType === MIME_JSON) ??
@@ -99,7 +99,9 @@ export const extractJSONFromEMLAttachments = (
  * @returns
  * `null` if there were no matches of a valid JSON in the string or the __first__ json attached
  */
-export const extractJSONFromString = (text: string): null | object => {
+export const extractJSONFromString = (
+  text: string,
+): null | Record<string, any> => {
   if (typeof text !== 'string' || !text) return null;
   const match = text.replace(/(\r\n|\n|\r)/gm, '').match(JSON_REGEX);
   if (!match) return null;
@@ -179,7 +181,7 @@ const memRequestJSONFile = new Map<
 >();
 export const requestJSONFile = async (
   link: string,
-): Promise<object | AxiosError | null> => {
+): Promise<Record<string, any> | AxiosError | null> => {
   if (memRequestJSONFile.has(link)) return memRequestJSONFile.get(link);
   const cache = await (async () => {
     try {
@@ -214,8 +216,7 @@ export const requestJSONFile = async (
         return null;
       }
       try {
-        const json = JSON.parse(response.data);
-        return json;
+        return JSON.parse(response.data);
       } catch (e) {
         return null;
       }

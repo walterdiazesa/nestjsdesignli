@@ -1,2 +1,4 @@
 export const APP_PATH =
-  process.env.NODE_ENV === 'prod' ? 'hosted-app-url' : 'http://localhost:3000/';
+  process.env.NODE_ENV === 'prod'
+    ? 'https://nestjsdesignli-production.up.railway.app/json-scraping'
+    : 'http://localhost:3000/json-scraping';

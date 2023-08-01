@@ -13,7 +13,7 @@ export const isValidURL = (url: string) => {
 };
 
 export const checkPathType = (path: string) => {
-  if (typeof path !== 'string') return 'invalid';
+  if (!path || typeof path !== 'string') return 'invalid';
 
   // Check if the path is a valid URL
   if (isValidURL(path)) return 'url';

@@ -1,11 +1,10 @@
 // cache.guard.ts
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
-  Injectable,
   CanActivate,
   ExecutionContext,
-  HttpStatus,
   Inject,
+  Injectable,
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { Request, Response } from 'express';

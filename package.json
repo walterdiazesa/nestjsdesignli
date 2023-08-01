@@ -1,8 +1,8 @@
 {
-  "name": "nest-typescript-starter",
+  "name": "nestjsdesignli",
   "private": true,
   "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "description": "Nest API to scrape JSON from .eml file",
   "license": "MIT",
   "scripts": {
     "build": "nest build",

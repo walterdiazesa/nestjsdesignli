@@ -1,5 +1,6 @@
 import { CacheModule } from '@nestjs/cache-manager';
 import { Test, TestingModule } from '@nestjs/testing';
+import { Response } from 'express';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -30,11 +31,15 @@ describe('AppController', () => {
   });
 
   describe('scrapJson', () => {
-    it('should return "something"', () => {
+    it('should return json', async () => {
       const appController = app.get(AppController);
-      expect(
-        appController.scrapJson(response, { path: '/' }),
-      ).not.toBeUndefined();
+      const jsonScrapingResponse = await appController.scrapJson(
+        response as Required<Response>,
+        {
+          path: '/',
+        },
+      );
+      expect(jsonScrapingResponse).toEqual({});
     });
   });
 });
