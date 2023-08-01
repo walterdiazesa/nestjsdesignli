@@ -4,7 +4,7 @@ export const USE_JSON_SCRAPING_URL = {
   hint: "Lost? The endpoint you're looking for is 'POST /json-scraping'",
   instructions:
     "Send the url or absolute path as a body type JSON with the property 'path'",
-  'example (remove backslashes before the quotes)': `curl -X POST -H "Content-Type: application/json" -d '{"path": "/Users/pcowner/Downloads/mail_with_attachment.eml"}' ${APP_PATH}`,
+  'example (remove backslashes before the quotes)': `curl -X POST -H "Content-Type: application/json" -d '{"path": "https://proud-of.s3.filebase.com/Test JSON from link of Github JSON.eml"}' ${APP_PATH}`,
   /* mistakes: {
     "If you're passing a url, please make sure is a valid url and is already encoded":
       {

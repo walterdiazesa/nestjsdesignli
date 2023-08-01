@@ -7,6 +7,8 @@
 ## Description
 A skill test from [Designli](https://designli.co/), using TypeScript, Nest and mailparser
 
+Cache Ready 🚀!
+
 ## Test on the fly!*
 API: [https://nestjsdesignli-production.up.railway.app/json-scraping](https://nestjsdesignli-production.up.railway.app/json-scraping)
 
@@ -24,6 +26,7 @@ $ npm install
 ```
 
 ## Running the app
+Running the app locally you can send an absolute path from your local machine that contains a .eml file (`/Users/pcowner/Downloads/mail_with_attachment.eml`)
 
 ```bash
 # watch mode
