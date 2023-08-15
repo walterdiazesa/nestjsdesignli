@@ -7,6 +7,9 @@
 ## Description
 A skill test from [Designli](https://designli.co/), using TypeScript, Nest and mailparser
 
+Deadline: 2 days
+Instructions: [Skill test](https://docs.google.com/forms/d/e/1FAIpQLSd44iat8Iv6tTL0xxTTlAzNIxudQYwNwZFBx8sL4jYQe3Vo6A/viewform?pli=1)
+
 Cache Ready 🚀!
 
 ## Test on the fly!*
