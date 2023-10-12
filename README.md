@@ -13,17 +13,6 @@ Instructions: [Skill test](https://docs.google.com/forms/d/e/1FAIpQLSd44iat8Iv6t
 
 Cache Ready 🚀!
 
-## Test on the fly!*
-API: [https://nestjsdesignli-production.up.railway.app/json-scraping](https://nestjsdesignli-production.up.railway.app/json-scraping)
-
-With cURL:
-
-```bash
-$ curl -X POST -H "Content-Type: application/json" -d '{"path": "https://proud-of.s3.filebase.com/Test JSON from link of Github JSON.eml"}' https://nestjsdesignli-production.up.railway.app/json-scraping
-```
-
-The cloud API only work with cloud hosted .eml file, such as: https://proud-of.s3.filebase.com/Test JSON from link of Github JSON.eml*
-
 ## Installation
 ```bash
 $ npm install
